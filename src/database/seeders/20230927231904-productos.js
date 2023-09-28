@@ -4,16 +4,16 @@ const productsJSON = require('../../data/productsDataBase.json')
 
 /* El nombre de cada uno dentro del return tiene que coincidir exactamente con las columnas de la tabla */
 
-const products = productsJSON.map(({name, price, discount, description, image, category}) => {
+const products = productsJSON.map(({ name, price, discount, description, image, category }) => {
   return {
     name,
     price,
     discount,
     description,
     image,
-    categoryId : category === 'visited' ? 1 : 2,
-    createdAt : new Date(),
-    updatedAt:new Date()
+    categoryId: category === 'visited' ? 1 : 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 })
 
@@ -22,21 +22,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
 
     await queryInterface.bulkInsert('Products',
-    [
-      {
-      name: 'visited',
-      image : null,
-      createdAt: new Date(),
-      updatedAt:new Date()
-      /* isBetaMember: false */
-    },
-    {
-      name: 'in-sale',
-      image : null,
-      createdAt: new Date(),
-      updatedAt:new Date()
-    }
-  ],
+      products,
       {});
   },
 
